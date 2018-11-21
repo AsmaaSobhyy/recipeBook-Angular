@@ -9,11 +9,17 @@
                 <li routerLinkActive="active" class="nav-item"><a class="nav-link" routerLink="/shopping-list" >shopping list</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown " appDropdown >
+                <ng-template [ngIf]="!authService.isAuthenticated()">
+
+                    <li class="nav-item "><a class="nav-link " routerLink="/signup">Register</a></li>
+                    <li class="nav-item "><a class="nav-link " routerLink="/signin">Login</a></li>
+                </ng-template>
+                <li class="nav-item "><a class="nav-link "(click)="onLogout()"  *ngIf="authService.isAuthenticated()">Logout</a></li>
+                <li class="nav-item dropdown " appDropdown *ngIf="authService.isAuthenticated()" >
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">dropdown</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                        <li class="dropdown-item" style="cursor: pointer;"><a>save data</a></li>
-                        <li class="dropdown-item" style="cursor: pointer;"><a >fetch data</a></li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()"><a>save data</a></li>
+                        <li class="dropdown-item" style="cursor: pointer;"(click)="onFetchData()"><a >fetch data</a></li>
 
                     </ul>
                 </li>
